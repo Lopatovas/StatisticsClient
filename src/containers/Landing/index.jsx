@@ -13,6 +13,7 @@ class Landing extends Component {
       categories: [], products: [], compareList: [], querried: [],
     };
     this.filterItems = this.filterItems.bind(this);
+    this.addToCompare = this.addToCompare.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class Landing extends Component {
   }
 
   getCategories() {
-    this.setState({ categories: [{ name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }] });
+    this.setState({ categories: [{ name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }] });
   }
 
   getProducts() {
@@ -39,20 +40,51 @@ class Landing extends Component {
     this.setState({ querried });
   }
 
+  addToCompare(item){
+    this.setState({ compareList: [...this.state.compareList, item], querried: this.state.querried.filter((e) => e.id !== item.id )});
+  }
+
   render() {
-    const { categories, querried, compareList } = this.state;
+    const { categories, querried, compareList, products } = this.state;
     return (
       <div className="container pt-5">
         <SearchBar changeHandler={this.filterItems} />
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'space-between' }}>
-          <div style={{ flex: 1, marginRight: 50 }}>
-            <List items={categories} />
+          <div
+            className="card shadow rounded"
+            style={{
+              flex: 1, marginRight: 50, height: '80vh',
+            }}
+          >
+            <h2 className="pt-4 pl-4">Categories</h2>
+            <div style={{
+              height: '78vh', overflow: 'overlay',
+            }}>
+              <List items={categories} />
+            </div>
           </div>
-          <div style={{ flex: 3 }}>
-            <Table items={querried} />
+          <div className="card shadow rounded" style={{ flex: 4 }}>
+            <h2 className="pt-4 pl-4">Products</h2>
+            <div className="pl-4 pr-4" style={{
+              height: '70vh', overflow: 'overlay',
+            }}>
+              <Table items={querried} clickCallback={(e) => {this.addToCompare(e)}}/>
+            </div>
           </div>
-          <div style={{ flex: 1, marginLeft: 50 }}>
-            <List items={compareList} />
+          <div
+            className="card shadow rounded"
+            style={{
+              flex: 1, marginLeft: 50, height: '80vh',
+            }}
+          >
+            <h2 className="pt-4 pl-4">Comparable products</h2>
+            <div style={{
+              height: '70vh', overflow: 'overlay',
+            }}>
+              <List items={compareList} />
+            </div>
+            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2 mt-2" >Compare</button>
+            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2" onClick={() => {this.setState({compareList: [], querried: products })}}>Clear</button>
           </div>
         </div>
       </div>

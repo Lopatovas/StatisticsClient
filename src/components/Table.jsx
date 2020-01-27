@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Table(props) {
-  const { items } = props;
+  const { items, clickCallback } = props;
   return (
     <div className="table-responsive">
       <table className="table table-hover">
@@ -28,7 +28,7 @@ function Table(props) {
                 {item.category}
               </td>
               <td>
-                <button type="button" className="btn btn-default">Add to compare list</button>
+                <button type="button" className="btn btn-default" onClick={() => clickCallback(item)}>Add to compare list</button>
               </td>
             </tr>
           ))}

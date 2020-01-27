@@ -3,25 +3,12 @@ import React from 'react';
 function List(props) {
   const { items } = props;
   return (
-    <div className="table-responsive">
-      <table className="table table-hover">
-        <thead className="thead-light">
-          <tr>
-            <th scope="col">
-                    Name
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td>
-                {item.name}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <ul className="list-group list-group-flush">
+        {items.map((item) => (
+          <li className="list-group-item list-group-item-action" key={items.id}>{item.name} </li>
+        ))}
+      </ul>
     </div>
   );
 }
