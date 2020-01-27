@@ -14,6 +14,7 @@ class Landing extends Component {
     };
     this.filterItems = this.filterItems.bind(this);
     this.addToCompare = this.addToCompare.bind(this);
+    this.navigateToProduct = this.navigateToProduct.bind(this);
   }
 
   componentDidMount() {
@@ -40,12 +41,19 @@ class Landing extends Component {
     this.setState({ querried });
   }
 
-  addToCompare(item){
-    this.setState({ compareList: [...this.state.compareList, item], querried: this.state.querried.filter((e) => e.id !== item.id )});
+  addToCompare(item) {
+    this.setState({ compareList: [...this.state.compareList, item], querried: this.state.querried.filter((e) => e.id !== item.id) });
+  }
+
+  navigateToProduct(item) {
+    const { history } = this.props;
+    history.push(`/StatisticsClient/Product/${item.id}`);
   }
 
   render() {
-    const { categories, querried, compareList, products } = this.state;
+    const {
+      categories, querried, compareList, products,
+    } = this.state;
     return (
       <div className="container pt-5">
         <SearchBar changeHandler={this.filterItems} />
@@ -59,16 +67,20 @@ class Landing extends Component {
             <h2 className="pt-4 pl-4">Categories</h2>
             <div style={{
               height: '78vh', overflow: 'overlay',
-            }}>
+            }}
+            >
               <List items={categories} />
             </div>
           </div>
           <div className="card shadow rounded" style={{ flex: 4 }}>
             <h2 className="pt-4 pl-4">Products</h2>
-            <div className="pl-4 pr-4" style={{
-              height: '70vh', overflow: 'overlay',
-            }}>
-              <Table items={querried} clickCallback={(e) => {this.addToCompare(e)}}/>
+            <div
+              className="pl-4 pr-4"
+              style={{
+                height: '70vh', overflow: 'overlay',
+              }}
+            >
+              <Table items={querried} productCallback={(e) => { this.navigateToProduct(e); }} clickCallback={(e) => { this.addToCompare(e); }} />
             </div>
           </div>
           <div
@@ -80,11 +92,12 @@ class Landing extends Component {
             <h2 className="pt-4 pl-4">Comparable products</h2>
             <div style={{
               height: '70vh', overflow: 'overlay',
-            }}>
+            }}
+            >
               <List items={compareList} />
             </div>
-            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2 mt-2" >Compare</button>
-            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2" onClick={() => {this.setState({compareList: [], querried: products })}}>Clear</button>
+            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2 mt-2">Compare</button>
+            <button type="button" className="btn btn-default w-75 mr-4 ml-4 mb-2" onClick={() => { this.setState({ compareList: [], querried: products }); }}>Clear</button>
           </div>
         </div>
       </div>

@@ -6,7 +6,10 @@ function List(props) {
     <div>
       <ul className="list-group list-group-flush">
         {items.map((item) => (
-          <li className="list-group-item list-group-item-action" key={items.id}>{item.name} </li>
+          <li className="list-group-item list-group-item-action" key={items.id}>
+            {item.name}
+            {' '}
+          </li>
         ))}
       </ul>
     </div>

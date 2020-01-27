@@ -17,9 +17,6 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-  },   
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
   },
   plugins: [
     'react',
