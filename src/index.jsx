@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/css/argon-dashboard.min.css';
+import './assets/css/argon-dashboard.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
