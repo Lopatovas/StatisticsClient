@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import ProductData from '../../mockup/products.json';
-
 import SearchBar from '../../components/SearchBar';
 import Table from '../../components/Table';
 import List from '../../components/List';
+
+import Utils from '../../Database/requestUtils';
 
 class Landing extends Component {
   constructor(props) {
@@ -23,11 +23,27 @@ class Landing extends Component {
   }
 
   getCategories() {
-    this.setState({ categories: [{ name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }, { name: 'Prizm' }, { name: 'Eos' }, { name: 'LaCrosse' }, { name: 'Fusion' }] });
+    const params = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      method: 'GET',
+    };
+    Utils.apiCall(Utils.CONFIG.CATEGORIES, params)
+      .then((resp) => { this.setState({ categories: resp.categories }); });
   }
 
   getProducts() {
-    this.setState({ products: ProductData, querried: ProductData });
+    const params = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      method: 'GET',
+    };
+    Utils.apiCall(Utils.CONFIG.PRODUCTS, params)
+      .then((resp) => { this.setState({ products: resp.products, querried: resp.products }); });
   }
 
   filterItems(e) {
@@ -80,7 +96,7 @@ class Landing extends Component {
                 height: '70vh', overflow: 'overlay',
               }}
             >
-              <Table items={querried} productCallback={(e) => { this.navigateToProduct(e); }} clickCallback={(e) => { this.addToCompare(e); }} />
+              <Table items={querried} productCallback={(e) => { this.navigateToProduct(e); }} clickCallback={(e) => { this.addToCompare(e); }} renderAction={compareList.length < 2} />
             </div>
           </div>
           <div

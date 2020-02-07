@@ -10,6 +10,8 @@ function LineChart(props) {
         style={style}
         animate={animation}
         data={data}
+        x={data.days ? data.days : data.x}
+        y={data.sales ? data.sales : data.y}
       />
     </VictoryChart>
   );
