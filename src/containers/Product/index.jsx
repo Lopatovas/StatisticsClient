@@ -119,7 +119,6 @@ class Product extends Component {
                   data={yearStats}
                   x={(data) => data.month.substring(5, data.month.length)}
                   y="sales"
-                  domain={{ y: [0, 10000] }}
                 />
                 <VictoryLine
                   style={{ data: { stroke: '#428bca' } }}
@@ -139,7 +138,6 @@ class Product extends Component {
                   data={weekStats}
                   x={(data) => data.day.substring(5, data.day.length)}
                   y="sales"
-                  domain={{ y: [0, 10000] }}
                 />
               </LineChart>
             </div>

@@ -126,7 +126,6 @@ class Landing extends Component {
                 data={weekStats[compareList[0]?.name]}
                 x={(data) => data?.day?.substring(5, data.day.length)}
                 y="sales"
-                domain={{ y: [0, 10000] }}
               />
               <VictoryLine
                 style={{ data: { stroke: '#428bca' } }}
