@@ -8,6 +8,7 @@ const CONFIG = {
   LAST_YEAR_STAT: '/getLastYearSales',
   PREDICTIONS: '/getPredictions',
   LINEAR_REGRESION: '/getLinearRegression',
+  PRODUCT: '/getProductById',
 };
 
 export default CONFIG;
